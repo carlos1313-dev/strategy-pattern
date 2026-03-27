@@ -20,7 +20,7 @@ import java.util.Scanner;
  * añadir un nuevo modo de transporte sólo requiere crear una nueva clase
  * que implemente EstrategiaDeRuta y registrarla aquí.
  */
-public class Strategy {
+public class Cliente {
 
     // Constantes de menú
     private static final int MODO_CARRETERA          = 1;
@@ -111,19 +111,19 @@ public class Strategy {
     }
 
     private static void imprimirMenu(String modoActual) {
-        System.out.println("─────────────────────────────────────────────");
+        System.out.println("---------------------------------------");
         System.out.println("  Modo actual: " + modoActual);
-        System.out.println("------------------------------------");
+        System.out.println("---------------------------------------");
         System.out.println("  Selecciona modo de transporte:");
         System.out.println("  [1]   Carretera");
         System.out.println("  [2]   A pie (Caminata)");
         System.out.println("  [3]   Transporte Público");
         System.out.println("  [4]   Bicicleta");
         System.out.println("  [5] ️  Ruta Turística");
-        System.out.println("─────────────────────────────────────────────");
+        System.out.println("---------------------------------------");
         System.out.println("  [6]   Calcular ruta");
         System.out.println("  [0]   Salir");
-        System.out.println("─────────────────────────────────────────────");
+        System.out.println("---------------------------------------");
         System.out.print("  Opción: ");
     }
 
