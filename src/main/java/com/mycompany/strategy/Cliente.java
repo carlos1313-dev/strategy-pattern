@@ -39,43 +39,31 @@ public class Cliente {
 
         // ── Configuración inicial: Navegador con estrategia por defecto ──────
         Navegador navegador = new Navegador(new EstrategiaDeCarretera());
-        String modoActual = "🚗  Carretera";
 
         boolean ejecutando = true;
 
         while (ejecutando) {
-            imprimirMenu(modoActual);
+            imprimirMenu(navegador.getNombreEstrategia());
             int opcion = leerOpcion(scanner);
 
             switch (opcion) {
-                case MODO_CARRETERA -> {
-                    navegador.setEstrategiaDeRuta(new EstrategiaDeCarretera());
-                    modoActual = " Carretera";
-                }
-                case MODO_CAMINATA -> {
-                    navegador.setEstrategiaDeRuta(new EstrategiaCaminata());
-                    modoActual = " A pie";
-                }
-                case MODO_TRANSPORTE_PUBLICO -> {
-                    navegador.setEstrategiaDeRuta(new EstrategiaTransportePublico());
-                    modoActual = " Transporte Público";
-                }
-                case MODO_BICICLETA -> {
-                    navegador.setEstrategiaDeRuta(new EstrategiaBicicleta());
-                    modoActual = " Bicicleta";
-                }
-                case MODO_TURISTICO -> {
-                    navegador.setEstrategiaDeRuta(new EstrategiaTuristica());
-                    modoActual = " Turística";
-                }
-                case CALCULAR_RUTA -> {
-                    calcularYMostrarRuta(scanner, navegador);
-                }
+                case MODO_CARRETERA ->
+                        navegador.setEstrategiaDeRuta(new EstrategiaDeCarretera());
+                case MODO_CAMINATA ->
+                        navegador.setEstrategiaDeRuta(new EstrategiaCaminata());
+                case MODO_TRANSPORTE_PUBLICO ->
+                        navegador.setEstrategiaDeRuta(new EstrategiaTransportePublico());
+                case MODO_BICICLETA ->
+                        navegador.setEstrategiaDeRuta(new EstrategiaBicicleta());
+                case MODO_TURISTICO ->
+                        navegador.setEstrategiaDeRuta(new EstrategiaTuristica());
+                case CALCULAR_RUTA ->
+                        calcularYMostrarRuta(scanner, navegador);
                 case SALIR -> {
-                    System.out.println("\n👋 ¡Hasta pronto! Que tengas buen viaje.\n");
+                    System.out.println("\n Hasta pronto! Que tengas buen viaje.\n");
                     ejecutando = false;
                 }
-                default -> System.out.println("⚠  Opción no válida. Intenta de nuevo.");
+                default -> System.out.println("Opción no válida. Intenta de nuevo.");
             }
         }
 

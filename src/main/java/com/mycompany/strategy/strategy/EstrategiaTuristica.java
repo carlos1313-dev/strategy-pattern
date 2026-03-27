@@ -16,21 +16,28 @@ public class EstrategiaTuristica implements EstrategiaDeRuta {
     public Ruta buildRuta(String origen, String destino) {
         System.out.println("[Turística] Trazando ruta por atracciones de la ciudad...");
 
-        double distancia = simularDistancia(origen, destino);
-        // Ruta más larga porque rodea por puntos turísticos
+        // La ruta turística es un 30% más larga porque rodea por puntos de interés
+        double distanciaBase = distanciaBase(origen, destino);
+        double distancia     = Math.round(distanciaBase * 1.3 * 10.0) / 10.0;
         int tiempo = (int) (distancia / 4.0 * 60) + 30; // lenta + tiempo de visita
 
         return new Ruta(
-            origen, destino,
-            " Ruta Turística",
-            distancia,
-            tiempo,
-            "Pasa por los principales monumentos y puntos de interés. ¡Lleva la cámara!"
+                origen, destino,
+                getNombre(),
+                distancia,
+                tiempo,
+                "Pasa por los principales monumentos y puntos de interés. ¡Lleva la cámara!"
         );
     }
 
-    private double simularDistancia(String origen, String destino) {
-        // Distancia aumentada por el desvío turístico
-        return Math.round((origen.length() + destino.length()) * 1.3 * 10.0) / 10.0;
+    @Override
+    public String getNombre() {
+        return "Ruta Turística";
+    }
+
+    private double distanciaBase(String origen, String destino) {
+        int hash = Math.abs((origen.toLowerCase() + destino.toLowerCase()).hashCode());
+        double base = 2.0 + (hash % 480) / 10.0;
+        return Math.round(base * 10.0) / 10.0;
     }
 }

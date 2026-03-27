@@ -16,19 +16,26 @@ public class EstrategiaTransportePublico implements EstrategiaDeRuta {
     public Ruta buildRuta(String origen, String destino) {
         System.out.println("[Transporte Público] Calculando combinación de líneas...");
 
-        double distancia = simularDistancia(origen, destino);
+        double distancia = distanciaBase(origen, destino);
         int tiempo = (int) (distancia / 25.0 * 60) + 10; // ~25 km/h + 10 min espera
 
         return new Ruta(
-            origen, destino,
-            "Transporte Público",
-            distancia,
-            tiempo,
-            "Combina bus y metro. Incluye tiempo de espera. Económico y ecológico."
+                origen, destino,
+                getNombre(),
+                distancia,
+                tiempo,
+                "Combina bus y metro. Incluye tiempo de espera. Económico y ecológico."
         );
     }
 
-    private double simularDistancia(String origen, String destino) {
-        return Math.round((origen.length() + destino.length()) * 0.65 * 10.0) / 10.0;
+    @Override
+    public String getNombre() {
+        return "Transporte Público";
+    }
+
+    private double distanciaBase(String origen, String destino) {
+        int hash = Math.abs((origen.toLowerCase() + destino.toLowerCase()).hashCode());
+        double base = 2.0 + (hash % 480) / 10.0;
+        return Math.round(base * 10.0) / 10.0;
     }
 }

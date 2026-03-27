@@ -20,4 +20,13 @@ public interface EstrategiaDeRuta {
      * @return            Un objeto Ruta con la información calculada.
      */
     Ruta buildRuta(String origen, String destino);
+
+    /**
+     * Retorna el nombre legible del modo de transporte.
+     * Permite al contexto y al cliente conocer la estrategia activa
+     * sin necesidad de casting ni introspección.
+     *
+     * @return Nombre del modo de transporte (ej. "Carretera", "Bicicleta").
+     */
+    String getNombre();
 }

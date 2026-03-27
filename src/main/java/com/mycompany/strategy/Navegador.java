@@ -35,7 +35,7 @@ public class Navegador {
         this.estrategiaDeRuta = estrategiaInicial;
     }
 
-    // Setter de estrategia (intercambio en caliente) 
+    // Setter de estrategia (intercambio en caliente)
 
     /**
      * Permite al usuario (o al sistema) cambiar el modo de transporte
@@ -70,8 +70,13 @@ public class Navegador {
 
     //  Getter informativo
 
-    public EstrategiaDeRuta getEstrategiaActual() {
-        return estrategiaDeRuta;
+    /**
+     * Retorna el nombre legible de la estrategia actualmente configurada.
+     * Elimina la necesidad de mantener un string duplicado en el Cliente.
+     *
+     * @return Nombre del modo de transporte activo.
+     */
+    public String getNombreEstrategia() {
+        return estrategiaDeRuta != null ? estrategiaDeRuta.getNombre() : "Sin configurar";
     }
 }
-

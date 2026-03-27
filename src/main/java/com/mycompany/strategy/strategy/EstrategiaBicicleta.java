@@ -16,19 +16,26 @@ public class EstrategiaBicicleta implements EstrategiaDeRuta {
     public Ruta buildRuta(String origen, String destino) {
         System.out.println("[Bicicleta] Calculando ruta ciclista...");
 
-        double distancia = simularDistancia(origen, destino);
+        double distancia = distanciaBase(origen, destino);
         int tiempo = (int) (distancia / 15.0 * 60); // ~15 km/h en bici
 
         return new Ruta(
-            origen, destino,
-            "Bicicleta",
-            distancia,
-            tiempo,
-            "Ruta por ciclovías y calles de bajo tráfico. Saludable y sin atascos."
+                origen, destino,
+                getNombre(),
+                distancia,
+                tiempo,
+                "Ruta por ciclovías y calles de bajo tráfico. Saludable y sin atascos."
         );
     }
 
-    private double simularDistancia(String origen, String destino) {
-        return Math.round((origen.length() + destino.length()) * 0.55 * 10.0) / 10.0;
+    @Override
+    public String getNombre() {
+        return "Bicicleta";
+    }
+
+    private double distanciaBase(String origen, String destino) {
+        int hash = Math.abs((origen.toLowerCase() + destino.toLowerCase()).hashCode());
+        double base = 2.0 + (hash % 480) / 10.0;
+        return Math.round(base * 10.0) / 10.0;
     }
 }

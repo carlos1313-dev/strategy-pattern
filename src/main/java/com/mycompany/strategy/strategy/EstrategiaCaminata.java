@@ -16,19 +16,26 @@ public class EstrategiaCaminata implements EstrategiaDeRuta {
     public Ruta buildRuta(String origen, String destino) {
         System.out.println("[Caminata] Calculando ruta peatonal...");
 
-        double distancia = simularDistancia(origen, destino);
+        double distancia = distanciaBase(origen, destino);
         int tiempo = (int) (distancia / 5.0 * 60); // ~5 km/h caminando
 
         return new Ruta(
-            origen, destino,
-            " A pie",
-            distancia,
-            tiempo,
-            "Ruta peatonal por aceras y senderos seguros. Ideal para distancias cortas."
+                origen, destino,
+                getNombre(),
+                distancia,
+                tiempo,
+                "Ruta peatonal por aceras y senderos seguros. Ideal para distancias cortas."
         );
     }
 
-    private double simularDistancia(String origen, String destino) {
-        return Math.round((origen.length() + destino.length()) * 0.5 * 10.0) / 10.0;
+    @Override
+    public String getNombre() {
+        return "A pie";
+    }
+
+    private double distanciaBase(String origen, String destino) {
+        int hash = Math.abs((origen.toLowerCase() + destino.toLowerCase()).hashCode());
+        double base = 2.0 + (hash % 480) / 10.0;
+        return Math.round(base * 10.0) / 10.0;
     }
 }

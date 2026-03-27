@@ -16,21 +16,31 @@ public class EstrategiaDeCarretera implements EstrategiaDeRuta {
     public Ruta buildRuta(String origen, String destino) {
         System.out.println("[Carretera] Calculando ruta por vías principales...");
 
-        // Simulación del algoritmo de ruta por carretera
-        double distancia = simularDistancia(origen, destino, 1.0);
-        int tiempo = (int) (distancia / 60.0 * 60); // ~60 km/h promedio
+        double distancia = distanciaBase(origen, destino);
+        int tiempo = (int) (distancia / 60.0 * 60); // ~60 km/h en autopista
 
         return new Ruta(
-            origen, destino,
-            "🚗  Carretera",
-            distancia,
-            tiempo,
-            "Ruta por autopistas y vías rápidas. Mínimo de semáforos."
+                origen, destino,
+                getNombre(),
+                distancia,
+                tiempo,
+                "Ruta por autopistas y vías rápidas. Mínimo de semáforos."
         );
     }
 
-    private double simularDistancia(String origen, String destino, double factor) {
-        // Simulación basada en longitud de nombres (demo)
-        return Math.round((origen.length() + destino.length()) * factor * 0.8 * 10.0) / 10.0;
+    @Override
+    public String getNombre() {
+        return "Carretera";
+    }
+
+    /**
+     * Distancia base simulada compartida: misma distancia geográfica
+     * independientemente del modo de transporte.
+     * Usa un hash estable de los nombres para producir un valor consistente.
+     */
+    private double distanciaBase(String origen, String destino) {
+        int hash = Math.abs((origen.toLowerCase() + destino.toLowerCase()).hashCode());
+        double base = 2.0 + (hash % 480) / 10.0; // rango: 2.0 – 50.0 km
+        return Math.round(base * 10.0) / 10.0;
     }
 }
